@@ -32,7 +32,13 @@ Aplicación full-stack de gestión de empleados y tareas, con autenticación por
 
 ## Capturas
 
-*(añade aquí 2-3 capturas o un GIF corto: login, panel de admin, dashboard de empleado — es lo primero que mira un recruiter antes de leer nada)*
+| Login | Panel de administrador |
+|---|---|
+| ![Login](./screenshots/login.png) | ![Panel de administrador](./screenshots/admin-panel.png) |
+
+| Dashboard de empleado |
+|---|
+| ![Dashboard de empleado](./screenshots/employee-dashboard.png) |
 
 ## Arquitectura
 
