@@ -1,34 +1,42 @@
 # TaskFlow
 
-Aplicación de gestión de empleados y tareas con autenticación por roles. Cada empleado accede con sus credenciales para ver y actualizar únicamente sus tareas asignadas; el administrador tiene acceso completo: gestión de usuarios y de todas las tareas.
+**[🔗 Ver demo en vivo](https://task-flow-nu-mauve.vercel.app/login)**
+
+Aplicación full-stack de gestión de empleados y tareas, con autenticación por roles: cada empleado accede solo a sus tareas asignadas, mientras que el administrador gestiona usuarios y tareas de toda la organización.
+
+**Credenciales de demo (rol Administrador):**
+- Email: `admin@empresa.com`
+- Contraseña: `admin123`
+
+> La demo corre en un plan gratuito — si nadie la ha visitado en un rato, la primera carga puede tardar 30-60 segundos en "despertar" el servidor.
 
 ## Stack
 
-**Backend**
-- Node.js + Express
-- PostgreSQL
-- Prisma ORM
-- JWT para autenticación
-- bcryptjs para hash de contraseñas
-
-**Frontend**
-- React 19 + Vite
-- React Router (rutas protegidas por rol)
-- Axios
+| | |
+|---|---|
+| **Frontend** | React 19, Vite, React Router, Axios |
+| **Backend** | Node.js, Express, JWT, bcrypt |
+| **Base de datos** | PostgreSQL + Prisma ORM |
+| **Despliegue** | Vercel (frontend) · Render (backend) · Neon (PostgreSQL) |
 
 ## Funcionalidades
 
-- Login con JWT y control de acceso por rol (`ADMIN` / `EMPLOYEE`)
-- **Empleado:** ve únicamente sus tareas asignadas y puede actualizar su estado (Pendiente / En progreso / Completada)
+- Autenticación con JWT y control de acceso por rol (`ADMIN` / `EMPLOYEE`)
+- **Empleado:** ve únicamente sus tareas asignadas y actualiza su estado (Pendiente / En progreso / Completada)
 - **Administrador:**
-  - Crear, listar y eliminar usuarios (empleados y otros administradores)
-  - Crear tareas y asignarlas a un empleado
-  - Ver y eliminar cualquier tarea
-- Borrado en cascada: al eliminar un usuario se eliminan automáticamente sus tareas asociadas
-- Diseño responsive
+  - Crea, lista y elimina usuarios (empleados y otros administradores)
+  - Crea tareas y las asigna a un empleado concreto
+  - Ve y elimina cualquier tarea de la organización
+- Borrado en cascada: eliminar un usuario elimina automáticamente sus tareas asociadas
+- Diseño responsive, adaptado a móvil
 
-## Estructura del proyecto
+## Capturas
 
+*(añade aquí 2-3 capturas o un GIF corto: login, panel de admin, dashboard de empleado — es lo primero que mira un recruiter antes de leer nada)*
+
+## Arquitectura
+
+```
 TaskFlow/
 ├── backend/
 │   ├── prisma/
@@ -41,11 +49,12 @@ TaskFlow/
 │       ├── middleware/        # Autenticación JWT y control de roles
 │       └── routes/            # auth, tasks, users
 └── frontend/
-└── src/
-├── api/client.js      # Cliente Axios con token automático
-├── context/AuthContext.jsx
-├── components/        # Header, ProtectedRoute
-└── pages/              # Login, EmployeeDashboard, AdminDashboard
+    └── src/
+        ├── api/client.js      # Cliente Axios con token automático
+        ├── context/AuthContext.jsx
+        ├── components/        # Header, ProtectedRoute
+        └── pages/              # Login, EmployeeDashboard, AdminDashboard
+```
 
 ## Puesta en marcha en local
 
@@ -80,9 +89,11 @@ Copia `.env.example` a `.env` y rellena tus credenciales reales:
 cp .env.example .env
 ```
 
+```
 DATABASE_URL="postgresql://usuario:password@localhost:5432/employee_management?schema=public"
 JWT_SECRET="un_secreto_largo_y_aleatorio"
 PORT=4000
+```
 
 Ejecuta las migraciones y crea el usuario administrador inicial:
 
@@ -90,8 +101,6 @@ Ejecuta las migraciones y crea el usuario administrador inicial:
 npx prisma migrate dev
 npm run seed
 ```
-
-Esto crea el admin con las credenciales: `admin@empresa.com` / `admin123` (cámbialas después de tu primer login).
 
 Arranca el servidor:
 
@@ -115,13 +124,16 @@ El frontend queda disponible en `http://localhost:5173`.
 
 ## Despliegue
 
-> Pendiente de completar tras el despliegue. Estructura prevista:
+| Servicio | Plataforma | URL |
+|---|---|---|
+| Frontend | Vercel | https://task-flow-nu-mauve.vercel.app |
+| Backend | Render | https://taskflow-backend-ejtt.onrender.com |
+| Base de datos | Neon (PostgreSQL) | — |
 
-- **Frontend:** Vercel
-- **Backend + PostgreSQL:** Render / Railway (pendiente de decidir)
+El frontend usa la variable de entorno `VITE_API_URL` para apuntar al backend en producción; en local, cae por defecto a `http://localhost:4000/api`.
 
-*(Esta sección se actualizará con las URLs reales y los pasos exactos en cuanto el proyecto esté desplegado.)*
+## Autor
 
-## Licencia
+**Sergio Calvo Aguilar** — [GitHub](https://github.com/SergioCalvoAguilarDev)
 
 Proyecto personal con fines de portfolio.
